@@ -1,0 +1,72 @@
+<template name="PsnAccount">
+	<div class="panel panel-default account-panel {{#if mainAccount}}main-account{{/if}}">
+		<div class="panel-heading">
+			<h3 class="panel-title pull-left">
+				{{accountName}} - <span class="owner-name {{#if mainAccount}}main-account{{/if}}">{{authorName}}</span>
+			</h3>
+
+			<div class="btn-group pull-right">
+				{{#afModalShow formId="editProduct" collection="PsnAccountsCollection" type="update" doc=this._id class="btn btn-sm"}}
+					Edit
+				{{/afModalShow}}
+				<a type="button" class="btn btn-secondary btn-sm del-account">Delete</a>
+			</div>
+		</div>
+		<div class="panel-body">
+			<div class="col-md-4 text-group">
+				<h6>PSN Id</h6>
+        		<p class="lead">{{onlineId}}</p>
+			</div>
+			<div class="col-md-4 text-group">
+				<h6>Email Address</h6>
+        		<p class="lead">{{emailAddress}}</p>
+			</div>
+			<div class="col-md-4 text-group">
+				<h6>Password</h6>
+        		<p class="lead">{{password}}</p>
+			</div>
+			<div class="col-md-4 text-group">
+				<h6>Primary Access</h6>
+				<p class="lead">{{#if primaryAccess}}Yes{{else}}No{{/if}}</p>
+			</div>
+			<div class="col-md-4 text-group">
+				<h6>Secondary Access</h6>
+				<p class="lead">{{#if secondaryAccess}}Yes{{else}}No{{/if}}</p>
+			</div>
+			<div class="col-md-4 text-group">
+				<h6>Games</h6>
+				<a type="button" class="btn btn-secondary btn-sm show-games">View Games</a>
+			</div>
+			{{#if showGamesList}}
+				{{> GameList}}
+			{{/if}}
+		</div>
+		<div class="panel-footer clearfix">
+				<div class="pull-right">
+						{{#if primaryAccess}}
+						<a href="#" class="btn btn-primary">Apply for Primary</a>
+						{{/if}}
+						{{#if secondaryAccess}}
+						<a href="#" class="btn btn-primary">Apply for Secondary</a>
+						{{/if}}
+				</div>
+		</div>
+	</div>
+</template>
+
+<template name="GameList">
+	<table class="table table-striped">
+		<thead>
+			<tr>
+				<th>Games</th>
+			</tr>
+		</thead>
+		<tbody>
+			{{#each game in games}}
+				<tr>
+					<td>{{game}}</td>
+				</tr>
+			{{/each}}
+		</tbody>
+	</table>
+</template>

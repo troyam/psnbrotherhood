@@ -1,0 +1,31 @@
+<template name="HomeLayout">
+    {{> Head}}
+    {{> Header}}
+    <main>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">{{> login}}</div>
+                <div class="col-md-6">{{> signup}}</div>
+            </div>
+        </div>
+    </main>
+</template>
+
+<template name="signup">
+    <h2>Signup</h2>
+    <form>
+        <input type="username" name="signupUsername" placeholder="User Name">
+        <input type="email" name="signupEmail" placeholder="Email">
+        <input type="password" name="signupPassword" placeholder="Password">
+        <input type="submit" value="Signup">
+    </form>
+</template>
+
+<template name="login">
+    <h2>Log in</h2>
+    <form>
+        <input type="email" name="loginEmail" placeholder="Email">
+        <input type="password" name="loginPassword" placeholder="Password">
+        <input type="submit" value="Login">
+    </form>
+</template>

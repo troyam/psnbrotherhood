@@ -1,0 +1,27 @@
+<template name="PsnAccounts">
+        <div class="container heading-block">
+                <div class="page-header-text">
+                </div>
+                {{#if $.Session.get 'newPsnAccount'}}
+                {{> NewPsnAccount}}
+                {{else}}
+                <!-- <button class="new-account">Add Psn Account</button> -->
+                {{#afModalShow formId="addProduct" collection="PsnAccountsCollection" type="insert" class="btn btn-primary"}}
+                        Add Psn Account 
+                {{/afModalShow}}
+                {{/if}}
+
+        </div>
+        <div class="container psn-accounts-block">
+                        <h1>Accounts</h1>
+                <div class="row">
+                        {{#if Template.subscriptionsReady}}
+                        {{#each psnaccounts}}
+                                {{> PsnAccount}}
+                        {{/each}}
+                        {{else}}
+                        <p>Loading</p>
+                        {{/if}}
+                </div>
+        </div>
+</template>
