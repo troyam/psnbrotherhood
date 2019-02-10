@@ -1,5 +1,11 @@
-.heading-block {
+.heading-block .heading-content {
   margin-top: 30px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.heading-block .heading-content h2 {
+  margin: 0;
 }
 .psn-accounts-block {
   margin-top: 30px;
@@ -8,11 +14,32 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+  min-height: 51px;
 }
 .psn-accounts-block .account-panel .panel-heading h3 {
   margin-bottom: 0;
 }
-.psn-accounts-block .account-panel.main-account .panel-heading,
-.psn-accounts-block .account-panel.main-account .panel-footer {
-  background-color: #71bfea;
+.psn-accounts-block .account-panel .panel-body .text-group h6 {
+  margin-bottom: 0;
+}
+.psn-accounts-block .account-panel .panel-body .text-group p.lead {
+  margin-bottom: 6px;
+}
+.psn-accounts-block .account-panel .panel-body .games-table {
+  margin-bottom: 0;
+}
+.psn-accounts-block .account-panel .panel-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  min-height: 55px;
+}
+.psn-accounts-block .account-panel .panel-footer p {
+  margin-bottom: 0;
+}
+.psn-accounts-block .account-panel.main-account .panel-heading {
+  color: white;
+}
+.psn-accounts-block .account-panel.main-account .panel-heading a {
+  color: white;
 }

@@ -15,6 +15,11 @@ PsnAccountsCollectionSchema = new SimpleSchema({
         label: "Account Name",
         max: 200
 	},
+	mainAccount: {
+		type: Boolean,
+		defaultValue: false,
+		optional: true
+	},
 	onlineId: {
         type: String,
         label: "Online ID",
@@ -28,20 +33,59 @@ PsnAccountsCollectionSchema = new SimpleSchema({
         type: String,
 		label: "Account Password",
 	},
-	mainAccount: {
-		type: Boolean,
-		defaultValue: false,
-		optional: true
-	},
 	primaryAccess: {
 		type: Boolean,
 		defaultValue: false,
 		optional: true
 	},
-	secondaryAccess: {
+	primaryAvaliable: {
 		type: Boolean,
 		defaultValue: false,
-		optional: true
+		optional: true,
+		autoValue: function () {
+			if(this.field("primaryAccess").value == false){
+				return false;
+			}
+		},
+	},
+	primaryUser:{
+		type: String,
+		label: "Primary Access User",
+		optional: true,
+		defaultValue: "No Current User"
+	},
+	secondaryAccess: {
+		type: Boolean,
+		optional: true,
+		autoValue: function () {
+			if(this.field("mainAccount").value == true){
+				return false;
+			}
+		},
+	},
+	secondaryAvaliable: {
+		type: Boolean,
+		optional: true,
+		autoValue: function () {
+			if(this.field("mainAccount").value == true){
+				return false;
+			} else if(this.field("secondaryAccess").value == false){
+				return false;
+			}
+		},
+	},
+	secondaryUser:{
+		type: String,
+		label: "Secondary Access User",
+		optional: true,
+		defaultValue: "No Current User",
+		autoValue: function () {
+			if(this.field("mainAccount").value == true){
+				return Meteor.user().username;
+			} else {
+				return "No Current User";
+			}
+		}
 	},
 	games: {
 		type: Array,
@@ -127,9 +171,85 @@ Meteor.methods({
 				return true; 
             }
         }
-    }
+	},
+	'applyForPrimary':function(id){
+		if (!Meteor.user()){
+            return;
+        } else {
+			var currentAccount = PsnAccountsCollection.findOne({_id:id});
+			if (currentAccount.primaryUser == "No Current User"){
+				PsnAccountsCollection.update(
+					{ _id: id },
+					{ $set:
+					   {
+						primaryAvaliable: false,
+						primaryUser: Meteor.user().username,
+					   }
+					}
+				 )
+			   	return true; 
+		   }
+		}
+	},
+	'cancelPrimary':function(id){
+		if (!Meteor.user()){
+            return;
+        } else {
+			var currentAccount = PsnAccountsCollection.findOne({_id:id});
+			if (currentAccount.primaryUser == Meteor.user().username){
+				PsnAccountsCollection.update(
+					{ _id: id },
+					{ $set:
+					   {
+						primaryAvaliable: true,
+						primaryUser: "No Current User",
+					   }
+					}
+				 )
+			   	return true; 
+		   }
+		}
+	},
+	'applyForSecondary':function(id){
+		if (!Meteor.user()){
+            return;
+        } else {
+			var currentAccount = PsnAccountsCollection.findOne({_id:id});
+			if (currentAccount.secondaryUser == "No Current User"){
+				PsnAccountsCollection.update(
+					{ _id: id },
+					{ $set:
+					   {
+						secondaryAvaliable: false,
+						secondaryUser: Meteor.user().username,
+					   }
+					}
+				 )
+			   	return true; 
+		   }
+		}
+	},
+	'cancelSecondary':function(id){
+		if (!Meteor.user()){
+            return;
+        } else {
+			var currentAccount = PsnAccountsCollection.findOne({_id:id});
+			if (currentAccount.secondaryUser == Meteor.user().username){
+				PsnAccountsCollection.update(
+					{ _id: id },
+					{ $set:
+					   {
+						secondaryAvaliable: true,
+						secondaryUser: "No Current User",
+					   }
+					}
+				 )
+			   	return true; 
+		   }
+		}
+	}
 });
 
-
-
 PsnAccountsCollection.attachSchema(PsnAccountsCollectionSchema);
+
+

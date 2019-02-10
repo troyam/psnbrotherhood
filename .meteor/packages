@@ -24,16 +24,15 @@ aldeed:autoform
 aldeed:simple-schema
 aldeed:collection2
 raix:handlebar-helpers
-erasaur:meteor-lodash
-spiderable
-fastclick
+# erasaur:meteor-lodash
+# spiderable
+# fastclick
 zimme:active-route
 gwendall:auth-client-callbacks
-meteortoys:allthings
+# meteortoys:allthings
 cleandersonlobo:sweetalert2
-peppelg:bootstrap-3-modal
 aldeed:delete-button
 aposidelov:autoform-bootstrap-modal
 twbs:bootstrap
 reactive-var
-momentjs:moment
+# momentjs:moment

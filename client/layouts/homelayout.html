@@ -1,11 +1,44 @@
+<head>
+    <title>Psn Brotherhood Tracker</title>
+</head>
+
 <template name="HomeLayout">
-    {{> Head}}
     {{> Header}}
     <main>
         <div class="container">
             <div class="row">
                 <div class="col-md-6">{{> login}}</div>
                 <div class="col-md-6">{{> signup}}</div>
+            </div>
+            <div class="row home-info">
+                <h2>Welcome to PSN Brotherhood Tracker Demo</h2>
+                <p>There are 3 demo user listed below. If you are having troubles redirectig to main page after logging in or signing up, please go to "/accounts" page manually. Thanks.</p>
+                <table class="table table-striped">
+                        <thead>
+                          <tr>
+                            <th>User Name</th>
+                            <th>Email</th>
+                            <th>Password</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr>
+                            <td>Steven Taylor</td>
+                            <td>steventaylor@mail.com</td>
+                            <td>123123</td>
+                          </tr>
+                          <tr>
+                            <td>Jon Snow</td>
+                            <td>jonsnow@mail.com</td>
+                            <td>123123</td>
+                          </tr>
+                          <tr>
+                            <td>Daisy Flower</td>
+                            <td>daisyflower@mail.com</td>
+                            <td>123123</td>
+                          </tr>
+                        </tbody>
+                      </table>
             </div>
         </div>
     </main>
@@ -14,18 +47,33 @@
 <template name="signup">
     <h2>Signup</h2>
     <form>
-        <input type="username" name="signupUsername" placeholder="User Name">
-        <input type="email" name="signupEmail" placeholder="Email">
-        <input type="password" name="signupPassword" placeholder="Password">
-        <input type="submit" value="Signup">
+            <div class="form-group">
+                <label for="usr">User Name:</label>
+                <input class="form-control" type="username" name="signupUsername" placeholder="User Name">
+            </div>
+            <div class="form-group">
+                <label for="usr">Email:</label>
+                <input class="form-control" type="email" name="signupEmail" placeholder="Email">
+            </div>
+            <div class="form-group">
+                <label for="usr">Password:</label>
+                <input class="form-control" type="password" name="signupPassword" placeholder="Password">
+            </div>
+            <button type="submit" value="Signup" class="btn btn-default">Sign Up</button>
     </form>
 </template>
 
 <template name="login">
     <h2>Log in</h2>
     <form>
-        <input type="email" name="loginEmail" placeholder="Email">
-        <input type="password" name="loginPassword" placeholder="Password">
-        <input type="submit" value="Login">
+            <div class="form-group">
+                <label for="usr">Email:</label>
+                <input class="form-control" type="email" name="loginEmail" placeholder="Email">
+            </div>
+            <div class="form-group">
+                <label for="usr">Password:</label>
+                <input class="form-control" type="password" name="loginPassword" placeholder="Password">
+            </div>
+            <button type="submit" value="Login" class="btn btn-default">Login</button>
     </form>
 </template>

@@ -54,5 +54,9 @@ Template.PsnAccounts.onCreated(function(){
 Template.PsnAccounts.helpers({
 	psnaccounts: ()=> {
 		return PsnAccountsCollection.find({});
-	}
+	},
+	currentUser: function() {
+		return Meteor.user().username;
+	  }
 });
+

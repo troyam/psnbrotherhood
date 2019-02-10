@@ -1,16 +1,36 @@
+<template name="PsnAccount2">
+		<table id="example" class="display nowrap" style="width:100%">
+				<thead>
+				  <tr>
+					<th>Account Name</th>
+					<th>Owner</th>
+					<th>PSN Id</th>
+					<th>Email</th>
+					<th>Password</th>
+					<th>Games</th>
+					<th></th>
+				</tr>
+				</thead>
+				<tbody>
+						{{> PsnAccountTableView}}
+				</tbody>
+		</table>
+</template>
+
 <template name="PsnAccount">
-	<div class="panel panel-default account-panel {{#if mainAccount}}main-account{{/if}}">
+	<div class="panel account-panel panel-default {{#if mainAccount}}main-account panel-primary{{else}}{{#unless orTrue primaryAvaliable secondaryAvaliable}} panel-danger{{/unless}}{{/if}}">
 		<div class="panel-heading">
 			<h3 class="panel-title pull-left">
-				{{accountName}} - <span class="owner-name {{#if mainAccount}}main-account{{/if}}">{{authorName}}</span>
+				{{accountName}} - <span class="owner-name small">Owner: {{authorName}}</span>
 			</h3>
-
+			{{#if isOwner authorName}}
 			<div class="btn-group pull-right">
-				{{#afModalShow formId="editProduct" collection="PsnAccountsCollection" type="update" doc=this._id class="btn btn-sm"}}
+				{{#afModalShow formId="editProduct" collection="PsnAccountsCollection" type="update" doc=this._id omitFields="authorName, authorID" class="btn btn-sm"}}
 					Edit
 				{{/afModalShow}}
 				<a type="button" class="btn btn-secondary btn-sm del-account">Delete</a>
 			</div>
+			{{/if}}
 		</div>
 		<div class="panel-body">
 			<div class="col-md-4 text-group">
@@ -26,12 +46,36 @@
         		<p class="lead">{{password}}</p>
 			</div>
 			<div class="col-md-4 text-group">
-				<h6>Primary Access</h6>
-				<p class="lead">{{#if primaryAccess}}Yes{{else}}No{{/if}}</p>
+				<h6>Primary Access / Avaliability</h6>
+				<p class="lead">{{#if primaryAccess}}Yes{{else}}No{{/if}} 
+					{{#if primaryAccess}}
+						{{#if primaryAvaliable}}/ Yes{{else}}/ No{{/if}}
+					{{else}}
+					/ -
+					{{/if}}
+				</p>
+				<!-- {{#unless primaryAvaliable}}
+					<p class="small">Current User: {{primaryUser}}</p>
+				{{/unless}} -->
 			</div>
 			<div class="col-md-4 text-group">
-				<h6>Secondary Access</h6>
-				<p class="lead">{{#if secondaryAccess}}Yes{{else}}No{{/if}}</p>
+				<h6>Secondary Access / Avaliability</h6>
+				<p class="lead">{{#if secondaryAccess}}Yes{{else}}No{{/if}}
+					{{#if secondaryAccess}}
+						{{#if secondaryAvaliable}}/ Yes{{else}}/ No{{/if}}
+					{{else}}
+					/ -
+					{{/if}}
+				</p>
+				<!-- {{#if mainAccount}}
+					<p>Current User: {{secondaryUser}}</p>
+				{{else}}
+					{{#if secondaryAccess}}
+						{{#unless secondaryAvaliable}}
+							<p class="small">Current User: {{secondaryUser}}</p>
+						{{/unless}}
+					{{/if}}
+				{{/if}} -->
 			</div>
 			<div class="col-md-4 text-group">
 				<h6>Games</h6>
@@ -41,21 +85,71 @@
 				{{> GameList}}
 			{{/if}}
 		</div>
-		<div class="panel-footer clearfix">
-				<div class="pull-right">
-						{{#if primaryAccess}}
-						<a href="#" class="btn btn-primary">Apply for Primary</a>
+		<div class="panel-footer">
+					<div>
+						<p>
+
+							{{#if mainAccount}}
+								Secondary(Main) Account: <span class="label label-default">{{secondaryUser}}</span>
+							{{else}}
+								{{#unless orTrue primaryAvaliable secondaryAvaliable}}
+									{{#unless primaryAvaliable}}
+										Primary Account: <span class="label label-default">{{primaryUser}}</span>
+									{{/unless}}
+									{{#if secondaryAccess}}
+										{{#unless secondaryAvaliable}}
+											Secondary Account: <span class="label label-default">{{secondaryUser}}</span>
+										{{/unless}}
+									{{/if}}
+								{{else}}
+									No one is using this account.
+								{{/unless}}
+							{{/if}}
+
+							
+						</p>
+					</div>
+				<div>
+					{{#unless isOwnerMain authorName mainAccount}}
+						{{#if bothTrue primaryAccess primaryAvaliable}}
+								<a href="#" class="btn btn-primary btn-apply-primary">Apply for Primary</a>
+							{{else}}
+								{{#if isPrimaryUser primaryUser}}
+									<a href="#" class="btn btn-primary btn-cancel-primary">Cancel Primary Access</a>
+								{{/if}}
 						{{/if}}
-						{{#if secondaryAccess}}
-						<a href="#" class="btn btn-primary">Apply for Secondary</a>
-						{{/if}}
+
+						{{#unless mainAccount}}
+							{{#if secondaryAccess}}
+								{{#if secondaryAvaliable}}
+									<a href="#" class="btn btn-primary btn-apply-secondary">Apply for Secondary</a>
+									{{else}}
+									{{#if isSecondaryUser secondaryUser}}
+										<a href="#" class="btn btn-primary btn-cancel-secondary">Cancel Secondary Access</a>
+									{{/if}}
+								{{/if}}
+							{{/if}}
+						{{/unless}}
+
+					{{/unless}}
 				</div>
 		</div>
 	</div>
 </template>
 
+<template name="PsnAccountTableView">
+		<tr>
+			<td>{{accountName}}</td>
+			<td>{{authorName}}</td>
+			<td>{{onlineId}}</td>
+			<td>{{emailAddress}}</td>
+			<td>{{password}}</td>
+			<td>{{> games}}</td>
+		</tr>
+</template>
+
 <template name="GameList">
-	<table class="table table-striped">
+	<table class="table table-striped games-table">
 		<thead>
 			<tr>
 				<th>Games</th>
@@ -70,3 +164,9 @@
 		</tbody>
 	</table>
 </template>
+
+<template name="games">
+		{{#each game in games}}
+			<span>{{game}}</span>
+		{{/each}}
+	</template>
