@@ -67,7 +67,7 @@ PsnAccountsCollectionSchema = new SimpleSchema({
 		type: Boolean,
 		optional: true,
 		autoValue: function () {
-			if(this.field("mainAccount").value == true){
+			if(this.field("mainAccount").value === true){
 				return false;
 			} else if(this.field("secondaryAccess").value == false){
 				return false;
@@ -80,10 +80,8 @@ PsnAccountsCollectionSchema = new SimpleSchema({
 		optional: true,
 		defaultValue: "No Current User",
 		autoValue: function () {
-			if(this.field("mainAccount").value == true){
+			if(this.field("mainAccount").value === true){
 				return Meteor.user().username;
-			} else {
-				return "No Current User";
 			}
 		}
 	},
@@ -100,7 +98,9 @@ PsnAccountsCollectionSchema = new SimpleSchema({
 		type: String,
 		label: "AuthorID",
 		autoValue: function () {
-			return this.userId;
+			if (this.isInsert && (!this.isSet || this.value.length === 0)) {
+				return this.userId;
+			 }
 		},
 		autoform: {
 			type: "hidden"
@@ -110,7 +110,9 @@ PsnAccountsCollectionSchema = new SimpleSchema({
 		type: String,
 		label: "AuthorName",
 		autoValue: function () {
-			return Meteor.user().username;
+			if (this.isInsert && (!this.isSet || this.value.length === 0)) {
+				return Meteor.user().username;
+			 }
 		},
 		autoform: {
 			type: "hidden"

@@ -1,0 +1,23 @@
+<template name="WishList">
+                <div class="container heading-block">
+                                <div class="heading-content">
+                                                <h2 class="pull-left">Wishlist</h2>
+                                                <div class="pull-right">
+                                                        {{#afModalShow formId="addGame" collection="WishListCollection" type="insert" class="btn btn-primary"}}
+                                                                Add Item To Wishlist 
+                                                        {{/afModalShow}}
+                                                </div>
+                                </div>
+                        </div>
+                        <div class="container wishlist-block">
+                                <div class="row">
+                                        {{#if Template.subscriptionsReady}}
+                                                {{#each wishlist}}
+                                                        {{> WishGame}}
+                                                {{/each}}
+                                        {{else}}
+                                        <p>Loading</p>
+                                        {{/if}}
+                                </div>
+                        </div>
+</template>

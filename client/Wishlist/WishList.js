@@ -1,15 +1,16 @@
-Template.PsnAccounts.events({
-	/* 'click .new-account': () => {
-		Session.set('newPsnAccount', true);
-	}, */
-	/* 'click .del-account':function(){
-       		Meteor.call('removePsnAccount', this._id);
-	} */
-	'click .del-account':function(event){
+Template.WishList.onCreated(function(){
+	var self = this;
+	self.autorun(function() {
+		self.subscribe('wishlist');
+	});
+});
+
+Template.WishList.events({
+	'click .del-game':function(event){
 		const id = this._id;
 		console.log(id);
 		
-        Meteor.call('askRemovePsnAccount', id, function(err, res){
+        Meteor.call('askRemoveWishGame', id, function(err, res){
             if (!res){
 		//alert('Can only delete your own ones...');
 		swal('Can only delete your own ones...', 'error');
@@ -28,7 +29,7 @@ Template.PsnAccounts.events({
 			'Your imaginary file has been deleted.',
 			'success'
 			)
-			Meteor.call('removePsnAccount', id);
+			Meteor.call('removeWishGame', id);
 		// result.dismiss can be 'overlay', 'cancel', 'close', 'esc', 'timer'
 		} else if (result.dismiss === 'cancel') {
 			swal(
@@ -41,22 +42,12 @@ Template.PsnAccounts.events({
 	    }
         });
 	}
-	
 });
-
-Template.PsnAccounts.onCreated(function(){
-	var self = this;
-	self.autorun(function() {
-		self.subscribe('psnaccounts');
-	});
-});
-
-Template.PsnAccounts.helpers({
-	psnaccounts: ()=> {
-		return PsnAccountsCollection.find({});
+Template.WishList.helpers({
+	wishlist: ()=> {
+		return WishListCollection.find({});
 	},
 	currentUser: function() {
 		return Meteor.user().username;
 	  }
 });
-

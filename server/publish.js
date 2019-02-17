@@ -3,3 +3,7 @@ Meteor.publish('psnaccounts', function(){
 	return PsnAccountsCollection.find({});
 });
 
+Meteor.publish('wishlist', function(){
+	return WishListCollection.find({});
+});
+

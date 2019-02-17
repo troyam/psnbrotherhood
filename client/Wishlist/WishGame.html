@@ -1,0 +1,15 @@
+<template name="WishGame">
+                        <div class="col-sm-4 col-md-3">
+                          <div class="thumbnail">
+                            <img src="{{coverImage}}" alt="{{gameName}}">
+                            <div class="caption">
+                              <h3>{{gameName}}</h3>
+                              <p>Requested by: {{authorName}}</p>
+                              <!-- <p><a href="#" class="btn btn-primary" role="button">Button</a> <a href="#" class="btn btn-default" role="button">Button</a></p> -->
+                              {{#if isOwner authorName}}
+                              <p><a href="#" class="btn btn-primary del-game" role="button">Delete</a></p>
+                                {{/if}}
+                            </div>
+                          </div>
+                        </div>
+</template>

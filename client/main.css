@@ -43,3 +43,20 @@
 .psn-accounts-block .account-panel.main-account .panel-heading a {
   color: white;
 }
+.wishlist-block {
+  margin-top: 30px;
+}
+.wishlist-block .thumbnail {
+  height: 100%;
+}
+.wishlist-block .row {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  flex-wrap: wrap;
+}
+.wishlist-block .row > [class*='col-'] {
+  display: flex;
+  flex-direction: column;
+}

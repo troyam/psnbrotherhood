@@ -29,7 +29,7 @@ raix:handlebar-helpers
 # fastclick
 zimme:active-route
 gwendall:auth-client-callbacks
-# meteortoys:allthings
+meteortoys:allthings
 cleandersonlobo:sweetalert2
 aldeed:delete-button
 aposidelov:autoform-bootstrap-modal

@@ -87,8 +87,8 @@
 		</div>
 		<div class="panel-footer">
 					<div>
-						<p>
-
+						<!-- <p>Primary Account: <span class="label label-default">{{primaryUser}}</span> Secondary Account: <span class="label label-default">{{secondaryUser}}</span></p> -->
+						<!-- <p>
 							{{#if mainAccount}}
 								Secondary(Main) Account: <span class="label label-default">{{secondaryUser}}</span>
 							{{else}}
@@ -105,14 +105,24 @@
 									No one is using this account.
 								{{/unless}}
 							{{/if}}
-
-							
+						</p> -->
+						<p>
+							{{#if primaryAccess}}
+								{{#unless primaryAvaliable}}
+									Primary Account: <span class="label label-default">{{primaryUser}}</span>
+								{{/unless}}
+							{{/if}}
+							{{#if secondaryAccess}}
+								{{#unless secondaryAvaliable}}
+									Secondary Account: <span class="label label-default">{{secondaryUser}}</span>
+								{{/unless}}
+							{{/if}}
 						</p>
 					</div>
 				<div>
 					{{#unless isOwnerMain authorName mainAccount}}
 						{{#if bothTrue primaryAccess primaryAvaliable}}
-								<a href="#" class="btn btn-primary btn-apply-primary">Apply for Primary</a>
+									<a href="#" class="btn btn-primary btn-apply-primary">Apply for Primary</a>
 							{{else}}
 								{{#if isPrimaryUser primaryUser}}
 									<a href="#" class="btn btn-primary btn-cancel-primary">Cancel Primary Access</a>
@@ -120,14 +130,12 @@
 						{{/if}}
 
 						{{#unless mainAccount}}
-							{{#if secondaryAccess}}
-								{{#if secondaryAvaliable}}
+							{{#if bothTrue secondaryAccess secondaryAvaliable}}
 									<a href="#" class="btn btn-primary btn-apply-secondary">Apply for Secondary</a>
 									{{else}}
 									{{#if isSecondaryUser secondaryUser}}
 										<a href="#" class="btn btn-primary btn-cancel-secondary">Cancel Secondary Access</a>
 									{{/if}}
-								{{/if}}
 							{{/if}}
 						{{/unless}}
 

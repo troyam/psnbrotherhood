@@ -14,11 +14,11 @@ Template.PsnAccount.helpers({
 		return a || b
 	},
 	isOwnerMain:function(author, main){
-        if (Meteor.user()){
-           if(Meteor.user().username == author && main){
-			   return true;
-		   };
-        }
+		if (Meteor.user()){
+		if(Meteor.user().username == author && main){
+				return true;
+			};
+		}
 	},
 	isOwner:function(author){
         if (Meteor.user()){
@@ -41,6 +41,9 @@ Template.PsnAccount.helpers({
 		   };
         }
 	},
+	currentUser: function() {
+		return Meteor.user().username;
+	  }
 });
 
 

@@ -3,14 +3,9 @@
                 <div class="heading-content">
                                 <h2 class="pull-left">Welcome {{currentUser}}</h2>
                                 <div class="pull-right">
-                                        {{#if $.Session.get 'newPsnAccount'}}
-                                                {{> NewPsnAccount}}
-                                                {{else}}
-                                                <!-- <button class="new-account">Add Psn Account</button> -->
-                                                {{#afModalShow formId="addProduct" collection="PsnAccountsCollection" type="insert" class="btn btn-primary"}}
-                                                        Add Psn Account 
-                                                {{/afModalShow}}
-                                        {{/if}}
+                                        {{#afModalShow formId="addProduct" collection="PsnAccountsCollection" type="insert" class="btn btn-primary"}}
+                                                Add Psn Account 
+                                        {{/afModalShow}}
                                 </div>
                 </div>
         </div>
